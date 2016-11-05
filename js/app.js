@@ -9,7 +9,8 @@ angular.module('myApp', ['ui.router', 'myAppControllers'])
             .state('home', {
                 name: 'Home Page',
                 url: '/home',
-                templateUrl: 'templates/home.html'
+                templateUrl: 'templates/home.html',
+                controller: 'HomeController'
             })
 
             .state('diagnosis', {
