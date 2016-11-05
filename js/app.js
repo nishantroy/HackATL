@@ -12,6 +12,13 @@ angular.module('myApp', ['ui.router', 'myAppControllers'])
                 templateUrl: 'templates/home.html'
             })
 
+            .state('diagnosis', {
+                name: 'Diagnosis Page',
+                url: '/diagnosis',
+                templateUrl: 'templates/diagnosis.html',
+                controller: 'DiagnosisController'
+            })
+
         ;
 
         $urlRouterProvider.otherwise('/home');
