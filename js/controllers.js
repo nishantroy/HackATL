@@ -21,7 +21,7 @@ angular.module('myAppControllers', ['myAppServices'])
 
     .controller('WebgazerController', function ($scope, $http) {
 
-        $scope.setup = function() {
+        $scope.setup = function () {
             var width = 320;
             var height = 240;
             var topDist = '0px';
@@ -53,11 +53,12 @@ angular.module('myAppControllers', ['myAppServices'])
 
             function drawLoop() {
                 requestAnimFrame(drawLoop);
-                overlay.getContext('2d').clearRect(0,0,width,height);
+                overlay.getContext('2d').clearRect(0, 0, width, height);
                 if (cl.getCurrentPosition()) {
                     cl.draw(overlay);
                 }
             }
+
             drawLoop();
         };
 
@@ -73,7 +74,14 @@ angular.module('myAppControllers', ['myAppServices'])
 
         $scope.startWebgaze = function () {
             console.log("Start");
-            webgazer.begin()
+            webgazer
+                .setGazeListener(function (prediction, elapsedTime) {
+                    if (prediction) {
+                        console.log("X : " + prediction.x + ", Y : " + prediction.y);
+                    }
+                    // console.log(elapsedTime);
+                })
+                .begin()
                 .setTracker("clmtrackr")
                 .setRegression("ridge")
                 .showPredictionPoints(true);
