@@ -5,15 +5,18 @@
 
             </canvas>
         </div>
-
         <div class="col-md-9">
             <h2>Webgazer</h2>
-
-            <button class="btn btn-primary" ng-click="startWebgaze()">
-                Start
-            </button>
+            <div ng-controller="WebgazerController" >
+                <button ng-click="startWebgaze(); startSpin()">START</button>
+                    <div align="center">
+                        <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+                        <span us-spinner="{radius:200, width:50, length: 2, lines: 10, speed: 1/20, color: 'purple', opacity: 1/10, trail: 5, corners:100}
+                            " spinner-key="spinner-1">
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
-
 </div>

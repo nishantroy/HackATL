@@ -19,7 +19,24 @@ angular.module('myAppControllers', ['myAppServices'])
         }
     })
 
-    .controller('WebgazerController', function ($scope, $http) {
+    .controller('WebgazerController', function ($scope, usSpinnerService, $rootScope) {
+        $scope.startcounter = 0;
+        $scope.startSpin = function() {
+            if (!$scope.spinneractive) {
+                usSpinnerService.spin('spinner-1');
+                $scope.startcounter++;
+            }
+        };
+
+        $scope.stopSpin = function() {
+            if ($scope.spinneractive) {
+                usSpinnerService.stop('spinner-1');
+            }
+        };
+        $scope.spinneractive = false;
+        $rootScope.$on('us-spinner:spin', function(event, key) {
+            $scope.spinneractive = true;
+        })
 
         $scope.setup = function () {
             var width = 320;
@@ -74,10 +91,30 @@ angular.module('myAppControllers', ['myAppServices'])
 
         $scope.startWebgaze = function () {
             console.log("Start");
+            var averagex = [0,0,0,0,0,0,0,0,0,0,0];
+            var averagey = [0,0,0,0,0,0,0,0,0,0,0];
+            var count = 0;
             webgazer
                 .setGazeListener(function (prediction, elapsedTime) {
-                    if (prediction) {
-                        console.log("X : " + prediction.x + ", Y : " + prediction.y);
+                    if (prediction){
+                        //console.log("X : " + prediction.x + ", Y : " + prediction.y);
+                        averagex[count] = prediction.x;
+                        averagey[count] = prediction.y;
+                        count += 1;
+                        if (count == averagex.length) {
+                            var sumx = 0;
+                            var sumy = 0;
+                            for (var i = 0; i < averagex.length; i += 1) {
+                                sumx += averagex[i];
+                                sumy += averagey[i];
+                                averagex[i] = 0;
+                                averagey[i] = 0;
+                            }
+                            var avgX = sumx / averagex.length;
+                            var avgY = sumy / averagey.length;
+                            console.log("X : " + avgX + ", Y : " + avgY);
+                            count = 0;
+                        }
                     }
                     // console.log(elapsedTime);
                 })
