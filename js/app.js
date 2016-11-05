@@ -20,6 +20,13 @@ angular.module('myApp', ['ui.router', 'myAppControllers'])
                 controller: 'DiagnosisController'
             })
 
+            .state('webgazer', {
+                name: 'Webgazer Page',
+                url: '/webgazer',
+                templateUrl: 'templates/webgazer.html',
+                controller: 'WebgazerController'
+            })
+
         ;
 
         $urlRouterProvider.otherwise('/home');
