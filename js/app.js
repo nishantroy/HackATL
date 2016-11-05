@@ -27,6 +27,13 @@ angular.module('myApp', ['ui.router', 'myAppControllers'])
                 controller: 'WebgazerController'
             })
 
+            .state('questions', {
+                name: 'Quiz Page',
+                url: '/questions',
+                templateUrl: 'templates/questions.html',
+                controller: 'QuestionsController'
+            })
+
         ;
 
         $urlRouterProvider.otherwise('/home');
