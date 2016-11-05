@@ -1,7 +1,7 @@
 /**
  * Created by nishantroy on 11/4/16.
  */
-angular.module('myApp', ['ui.router', 'myAppControllers'])
+angular.module('myApp', ['ui.router', 'myAppControllers', 'angularSpinner'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -33,7 +33,6 @@ angular.module('myApp', ['ui.router', 'myAppControllers'])
 
 
     })
-
 
 ;
 
