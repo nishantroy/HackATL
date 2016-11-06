@@ -30,30 +30,21 @@ angular.module('myAppControllers', ['myAppServices'])
         };
 
         $scope.startcounter = 0;
-        $scope.startSpin = function() {
-            //var stop = Date.now() + $scope.seconds;
-            //var inter = setInterval(function () {
-            //    if (Date.now() < stop ) {
-            //        $scope.seconds = (stop - Date.now()) % 1000;
-            //    } else if (Date.now() > stop) {
-            //        clearInterval(inter);
-            //    }
-            //}, 1000);
-            //$scope.countdown = false;
-            //$scope.ExperimentInProgress = true;
+
+        $scope.startSpin = function () {
             if (!$scope.spinneractive) {
                 usSpinnerService.spin('spinner-1');
                 $scope.startcounter++;
             }
         };
 
-        $scope.stopSpin = function() {
+        $scope.stopSpin = function () {
             if ($scope.spinneractive) {
                 usSpinnerService.stop('spinner-1');
             }
         };
         $scope.spinneractive = false;
-        $rootScope.$on('us-spinner:spin', function(event, key) {
+        $rootScope.$on('us-spinner:spin', function (event, key) {
             $scope.spinneractive = true;
         });
 
@@ -111,12 +102,12 @@ angular.module('myAppControllers', ['myAppServices'])
         $scope.startWebgaze = function () {
             console.log("Start");
             var overallCount = 0;
-            var averagex = [0,0,0,0,0,0,0,0,0,0,0];
-            var averagey = [0,0,0,0,0,0,0,0,0,0,0];
+            var averagex = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var averagey = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var count = 0;
             webgazer
                 .setGazeListener(function (prediction, elapsedTime) {
-                    if (prediction){
+                    if (prediction) {
                         //console.log("X : " + prediction.x + ", Y : " + prediction.y);
                         averagex[count] = prediction.x;
                         averagey[count] = prediction.y;
@@ -144,15 +135,15 @@ angular.module('myAppControllers', ['myAppServices'])
                     // console.log(elapsedTime);
                     if (overallCount == 4) {
                         swal({
-                            title: "No Concussion Detected",
-                            text: "Athlete is safe for physical activity",
-                            type: "info",
-                            //closeOnConfirm: false
-                        },
-                        function() {
-                            webgazer.end();
-                        //    spinner.stopSpin();
-                        });
+                                title: "No Concussion Detected",
+                                text: "Athlete is safe for physical activity",
+                                type: "info",
+                                //closeOnConfirm: false
+                            },
+                            function () {
+                                webgazer.end();
+                                //    spinner.stopSpin();
+                            });
                     }
                 })
                 .begin()
@@ -164,7 +155,6 @@ angular.module('myAppControllers', ['myAppServices'])
     })
 
 
-
     .controller('QuestionsController', function ($scope, $http) {
         //quiz thing
         $scope.startQuiz = function () {
@@ -173,6 +163,7 @@ angular.module('myAppControllers', ['myAppServices'])
             $scope.id = 0;
             $scope.score = 0;
             $scope.answers = [];
+            $scope.chosenAnswer = "";
             $scope.questions = [
                 {
                     question: "Was the athlete able to recall their location?",
@@ -215,50 +206,46 @@ angular.module('myAppControllers', ['myAppServices'])
                     question: "Does the athlete have double vision or have trouble reading?",
                     options: ["Yes", "No"],
                     answer: 1
-                },
-                {
-                    question: "Who invented telephone?",
-                    options: ["Albert Einstein", "Alexander Graham Bell", "Isaac Newton", "Marie Curie"],
-                    answer: 1
                 }
             ];
             $scope.nextQuestion();
         };
 
-        $scope.nextQuestion  = function () {
-            var $q = false;
+        $scope.nextQuestion = function () {
             if ($scope.id < $scope.questions.length) {
-                $q = $scope.questions[$scope.id];
-            }
-            if($q) {
-                $scope.question = $q.question;
-                $scope.options = $q.options;
-                $scope.answer = $q.answer;
+                $scope.question = $scope.questions[$scope.id].question;
+                $scope.options = $scope.questions[$scope.id].options;
+                $scope.answer = $scope.questions[$scope.id].answer;
             } else {
                 $scope.quizOver = true;
                 $scope.calcResults();
             }
+
         };
 
-        $scope.checkAnswer = function () {
-            var ans = $('input[name=answer]:checked').val();
-
-            if (ans) {
-                if(ans != $scope.options[$scope.answer]) {
-                    $scope.score++;
-                }
-                $scope.answers.push(ans);
-                $scope.id++;
-                $scope.nextQuestion();
+        $scope.checkAnswer = function (ans) {
+            console.log(ans);
+            if (ans != $scope.options[$scope.answer]) {
+                $scope.score++;
             }
+            $scope.answers.push(ans);
+            $scope.id++;
+            $scope.nextQuestion();
         };
 
         $scope.calcResults = function () {
             console.log($scope.answers);
             if ($scope.score > 0) {
-                $scope.result = "The athlete has shown at least one symptom. They should stay off the field.\n Take the test to diagnose severity.";
+
+                if ($scope.score == 1) {
+                    $scope.result = "The athlete has shown 1 symptom of concussion. " +
+                        "They should refrain from activity.\n Take the test to diagnose severity.";
+                } else {
+                    $scope.result = "The athlete has shown " + $scope.score + " symptoms of concussion. " +
+                        "They should refrain from activity.\n Take the test to diagnose severity.";
+                }
             } else {
-                $scope.result = "The athlete has not admitted to any symptom. Take the test to verify.";
+                $scope.result = "The athlete has not admitted to any symptoms of concussion. Take the test to verify.";
             }
         };
     })

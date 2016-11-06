@@ -11,25 +11,15 @@
                 <h4 id="question">{{question}}</h4>
 
 
-                <!--<div ng-style="{color: myColor}">-->
                 <div ng-repeat="option in options">
                     <div class="radioWrapper">
-                        <input type="radio" name="answer" id="{{option}}" value="{{option}}" class="customRadio">
+                        <input type="radio" id="{{option}}" name="answer" ng-model = "$parent.chosenAnswer"
+                               ng-value="option" class="customRadio">
                         <label for="{{option}}" class="customRadio">{{option}}</label>
                     </div>
                 </div>
-                <!--</div>-->
-                <!--<li ng-repeat="item in options" ng-class="{'pending-delete': item.checked}">-->
-                    <!--&lt;!&ndash;name: {{item.name}}, {{item.title}}&ndash;&gt;-->
-                    <!--{{item.ans}}-->
-                    <!--<input type="radio" ng-model="item.checked" value="{{item}}" />-->
-                <!--</li>-->
 
-
-
-
-
-                <button class="btn btn-blue-fill" ng-click="checkAnswer()">Submit</button>
+                <button class="btn btn-blue-fill" ng-click="checkAnswer(chosenAnswer)">Submit</button>
             </div>
 
             <div ng-show="quizOver">
