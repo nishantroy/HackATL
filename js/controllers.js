@@ -23,8 +23,9 @@ angular.module('myAppControllers', ['myAppServices'])
 
         $scope.countDown = function () {
             $scope.ExperimentInProgress = true;
-            $scope.countdown = true;
-            $scope.seconds = 5000; //ms? ns?
+            $scope.isCountDown = true;
+            $scope.seconds = 5000; //ms?
+            console.log($scope.seconds);
             // var stop = Date.now() + $scope.seconds;
             // var inter = setInterval(function () {
             //     if (Date.now() < stop ) {
@@ -241,9 +242,9 @@ angular.module('myAppControllers', ['myAppServices'])
         $scope.calcResults = function () {
             console.log($scope.answers);
             if ($scope.score > 0) {
-                $scope.result = "The athlete has shown at least one symptom. They should stay off the field.\n Take the test to diagnose severity.";
+                $scope.result = "The athlete has shown at least one symptom of concussion. They should refrain from activity.\n Take the test to diagnose severity.";
             } else {
-                $scope.result = "The athlete has not admitted to any symptom. Take the test to verify.";
+                $scope.result = "The athlete has not admitted to any symptom of concussion. Take the test to verify.";
             }
         };
     })
