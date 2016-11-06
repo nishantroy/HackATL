@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+
 body {
     font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -6,6 +7,10 @@ body {
     color: #2a3237;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.spinnerPos {
+    position: relative;
 }
 
 .parallax {
@@ -21,6 +26,7 @@ body {
     width: 100%;
     height: 100%;
 }
+
 /* Preloader */
 
 .preloader {
@@ -158,6 +164,7 @@ a {
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+
 /* Navigation Bar ( Navbar ) */
 
 nav.navbar {
@@ -189,18 +196,19 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 .icon-bar {
     background: #bbb;
 }
+
 /* Buttons */
 
 /*.btn {*/
-    /*font-size: 18px;*/
-    /*display: inline-block;*/
-    /*padding: 15px 30px;*/
-    /*color: white;*/
-    /*border: 2px solid transparent;*/
-    /*border-radius: 2px;*/
-    /*background: transparent;*/
-    /*-webkit-transition: all 0.3s ease;*/
-    /*transition: all 0.3s ease;*/
+/*font-size: 18px;*/
+/*display: inline-block;*/
+/*padding: 15px 30px;*/
+/*color: white;*/
+/*border: 2px solid transparent;*/
+/*border-radius: 2px;*/
+/*background: transparent;*/
+/*-webkit-transition: all 0.3s ease;*/
+/*transition: all 0.3s ease;*/
 /*}*/
 
 .btn:hover,
@@ -269,6 +277,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
     position: relative;
     z-index: 1;
 }
+
 /* Sections */
 section {
     position: relative;
@@ -545,6 +554,7 @@ section {
 .team .title {
     margin: 50px 0;
 }
+
 /* Pricing */
 
 #pricing {
@@ -651,6 +661,7 @@ section {
     margin-bottom: 60px;
     color: white;
 }
+
 /* Footer */
 
 footer {
@@ -721,6 +732,7 @@ footer .social-footer li a {
 footer .social-footer li:hover a {
     color: #00a8ff;
 }
+
 /* Form Control */
 
 .form-control {
@@ -765,7 +777,7 @@ footer .social-footer li:hover a {
 }
 
 .form-control.form-white:focus {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Popup */
@@ -876,7 +888,7 @@ footer .social-footer li:hover a {
 }
 
 .checkbox input[type=checkbox]:focus + label:before {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .checkbox label:after {
@@ -996,6 +1008,7 @@ footer .social-footer li:hover a {
 .bold {
     font-weight: bold;
 }
+
 /* Colors */
 
 .white {
@@ -1030,25 +1043,31 @@ footer .social-footer li:hover a {
     margin-top: 150px;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     h1 {
         font-size: 36px;
     }
+
     h2 {
         font-size: 28px;
     }
+
     h3 {
         font-size: 24px;
     }
+
     h4 {
         font-size: 20px;
     }
+
     h5 {
         font-size: 16px;
     }
+
     h6 {
         font-size: 12px;
     }
+
     .section {
         padding: 30px 0;
     }
@@ -1056,19 +1075,21 @@ footer .social-footer li:hover a {
 
 /* Media Queries */
 
-@media(max-width:991px) {
+@media (max-width: 991px) {
     .text-center-mobile {
         text-align: center !important;
     }
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
     .pricing {
         margin-bottom: 30px;
     }
+
     .pricings .pricing .info-icon {
         display: none;
     }
+
     .pricings .pricing .box-main,
     .pricings .pricing .box-second {
         left: 0;
@@ -1077,23 +1098,28 @@ footer .social-footer li:hover a {
         text-align: left;
         background: #00a8ff;
     }
+
     .pricings .pricing .box-main.active {
         background: #00a8ff;
         -webkit-transform: translateX(0%);
         -ms-transform: translateX(0%);
         transform: translateX(0%);
     }
+
     .pricings .pricing .box-second {
         position: relative;
         opacity: 1;
     }
+
     .popup-form {
         width: 100%;
         margin: 60px auto;
     }
+
     .modal {
         padding: 0 10px !important;
     }
+
     .popup-form .form-control:not(.dropdown):focus {
         position: relative;
         padding-right: 30px;
@@ -1101,10 +1127,11 @@ footer .social-footer li:hover a {
     }
 }
 
-@media(max-width: 400px) {
+@media (max-width: 400px) {
     header .typed-cursor {
         display: none;
     }
+
     .pricings .pricing .box-second {
         padding-top: 0;
     }
@@ -1125,8 +1152,9 @@ footer .social-footer li:hover a {
 input[type="radio"] {
     visibility: hidden;
 }
+
 /* styling the span following the checked radio: */
-input[type=radio]:checked+label {
+input[type=radio]:checked + label {
     background-color: lightskyblue;
 }
 

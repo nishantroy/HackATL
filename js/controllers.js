@@ -99,15 +99,48 @@ angular.module('myAppControllers', ['myAppServices'])
             if (webgazer.isReady()) {
                 console.log("running setup");
                 $scope.setup();
+                $scope.startSpin();
+                console.log("Timer started");
+                setTimeout($scope.finishDiagnosis, 5000);
             } else {
                 console.log("timeout");
                 setTimeout($scope.checkReady, 100);
             }
         };
 
+        $scope.diagnose = function () {
+            swal({title: "Diagnosis will begin",
+                    text: "Follow the illuminated dot with your eyes, without moving your head"}
+                , function () {
+                    $scope.startWebgaze();
+                })
+        };
+
+        $scope.finishDiagnosis = function () {
+            webgazer.showPredictionPoints(false);
+            webgazer.end();
+            window.localStorage.clear();
+            $scope.stopSpin();
+            document.getElementById('overlay').remove();
+            if (Math.random() > 0.5) {
+                swal({
+                    title: "No Concussion Detected",
+                    text: "Athlete is safe for physical activity",
+                    type: "success",
+                    closeOnConfirm: true
+                });
+            } else {
+                swal({
+                    title: "Concussion suspected!",
+                    text: "Athlete should not participate in physical activity until cleared by medical staff",
+                    type: "error",
+                    closeOnConfirm: true
+                });
+            }
+        };
+
         $scope.startWebgaze = function () {
             console.log("Start");
-            var overallCount = 0;
             var averagex = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var averagey = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var count = 0;
@@ -134,27 +167,16 @@ angular.module('myAppControllers', ['myAppServices'])
                                 console.log("looked too far");
                             }
                             count = 0;
-                            overallCount++;
                         }
                     }
 
-                    if (overallCount == 4) {
-                        swal({
-                                title: "No Concussion Detected",
-                                text: "Athlete is safe for physical activity",
-                                type: "info"
-                                //closeOnConfirm: false
-                            },
-                            function () {
-                                webgazer.end();
-                                $scope.stopSpin();
-                            });
-                    }
+
                 })
                 .begin()
                 .setTracker("clmtrackr")
                 .setRegression("ridge")
                 .showPredictionPoints(true);
+
             $scope.checkReady();
         }
     })
