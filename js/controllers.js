@@ -20,6 +20,25 @@ angular.module('myAppControllers', ['myAppServices'])
     })
 
     .controller('WebgazerController', function ($scope, usSpinnerService, $rootScope) {
+
+        $scope.countDown = function () {
+            $scope.ExperimentInProgress = true;
+            $scope.countdown = true;
+            $scope.seconds = 5000; //ms? ns?
+            // var stop = Date.now() + $scope.seconds;
+            // var inter = setInterval(function () {
+            //     if (Date.now() < stop ) {
+            //         $scope.seconds = (stop - Date.now()) % 1000;
+            //     } else if (Date.now() > stop) {
+            //         clearInterval(inter);
+            //     }
+            // }, 1000);
+            // $scope.countdown = false;
+            // $scope.ExperimentInProgress = true;
+            $scope.startWebgaze();
+            $scope.startSpin();
+        };
+
         $scope.startcounter = 0;
         $scope.startSpin = function() {
             if (!$scope.spinneractive) {
@@ -36,7 +55,7 @@ angular.module('myAppControllers', ['myAppServices'])
         $scope.spinneractive = false;
         $rootScope.$on('us-spinner:spin', function(event, key) {
             $scope.spinneractive = true;
-        })
+        });
 
         $scope.setup = function () {
             var width = 320;
@@ -113,6 +132,9 @@ angular.module('myAppControllers', ['myAppServices'])
                             var avgX = sumx / averagex.length;
                             var avgY = sumy / averagey.length;
                             console.log("X : " + avgX + ", Y : " + avgY);
+                            if (avgX > 1400 || avgX < 500 || avgY > 700 || avgY < 100) {
+                                console.log("looked too far");
+                            }
                             count = 0;
                         }
                     }
