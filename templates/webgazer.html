@@ -5,20 +5,25 @@
                 <canvas id="overlay"></canvas>
             </div>
             <div class="col-md-9 text-center white">
-                <h2>Webgazer</h2>
-                <div class="col-md-12 text-center btn-white-fill" ng-controller="WebgazerController" >
-                    <button class = "btn btn-blue-fill" ng-click="startWebgaze(); startSpin()">START</button>
-                        <div align="center">
-                            <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
-                            <span us-spinner="{radius:200, width:8, length: 2, lines: 50, speed: .3, color: 'white', opacity: 1/10, trail: 5, corners:100}
+                <h2>Diagnostic Eye-Test</h2>
+                <div class="col-md-12 text-center btn-white-fill">
+                    <button class="btn btn-blue-fill" ng-click="startWebgaze(); startSpin()">START</button>
+                    <div align="center">
+                        <br><br><br><br>
+                        <span us-spinner="{radius:200, width:8, length: 2, lines: 50,
+                        speed: .3, color: 'white', opacity: 1/10, trail: 5, corners:100}
                                 " spinner-key="spinner-1">
                             </span>
-                            <a ui-sref="home"><button class="btn btn-primary">
-                                Try Again.
-                            </button></a>
-                        </div>
+
                     </div>
                 </div>
+
+                <a ui-sref="home">
+                    <button class="btn btn-primary">
+                        Try Again.
+                    </button>
+                </a>
             </div>
         </div>
+    </div>
 </div>

@@ -39,13 +39,19 @@ angular.module('myAppControllers', ['myAppServices'])
         };
 
         $scope.stopSpin = function () {
+            console.log("Stop spinner");
             if ($scope.spinneractive) {
+                console.log("If Block");
                 usSpinnerService.stop('spinner-1');
             }
         };
         $scope.spinneractive = false;
         $rootScope.$on('us-spinner:spin', function (event, key) {
             $scope.spinneractive = true;
+        });
+
+        $rootScope.$on('us-spinner:stop', function(event, key) {
+            $scope.spinneractive = false;
         });
 
         $scope.setup = function () {
@@ -132,17 +138,16 @@ angular.module('myAppControllers', ['myAppServices'])
                         }
                     }
 
-                    // console.log(elapsedTime);
                     if (overallCount == 4) {
                         swal({
                                 title: "No Concussion Detected",
                                 text: "Athlete is safe for physical activity",
-                                type: "info",
+                                type: "info"
                                 //closeOnConfirm: false
                             },
                             function () {
                                 webgazer.end();
-                                //    spinner.stopSpin();
+                                $scope.stopSpin();
                             });
                     }
                 })
