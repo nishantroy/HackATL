@@ -23,25 +23,24 @@ angular.module('myAppControllers', ['myAppServices'])
 
         $scope.countDown = function () {
             $scope.ExperimentInProgress = true;
-            $scope.isCountDown = true;
-            $scope.seconds = 5000; //ms?
-            console.log($scope.seconds);
-            // var stop = Date.now() + $scope.seconds;
-            // var inter = setInterval(function () {
-            //     if (Date.now() < stop ) {
-            //         $scope.seconds = (stop - Date.now()) % 1000;
-            //     } else if (Date.now() > stop) {
-            //         clearInterval(inter);
-            //     }
-            // }, 1000);
-            // $scope.countdown = false;
-            // $scope.ExperimentInProgress = true;
+            $scope.countdown = true;
+            $scope.seconds = 50000; //ms? ns?
             $scope.startWebgaze();
             $scope.startSpin();
         };
 
         $scope.startcounter = 0;
         $scope.startSpin = function() {
+            //var stop = Date.now() + $scope.seconds;
+            //var inter = setInterval(function () {
+            //    if (Date.now() < stop ) {
+            //        $scope.seconds = (stop - Date.now()) % 1000;
+            //    } else if (Date.now() > stop) {
+            //        clearInterval(inter);
+            //    }
+            //}, 1000);
+            //$scope.countdown = false;
+            //$scope.ExperimentInProgress = true;
             if (!$scope.spinneractive) {
                 usSpinnerService.spin('spinner-1');
                 $scope.startcounter++;
@@ -111,6 +110,7 @@ angular.module('myAppControllers', ['myAppServices'])
 
         $scope.startWebgaze = function () {
             console.log("Start");
+            var overallCount = 0;
             var averagex = [0,0,0,0,0,0,0,0,0,0,0];
             var averagey = [0,0,0,0,0,0,0,0,0,0,0];
             var count = 0;
@@ -137,9 +137,23 @@ angular.module('myAppControllers', ['myAppServices'])
                                 console.log("looked too far");
                             }
                             count = 0;
+                            overallCount++;
                         }
                     }
+
                     // console.log(elapsedTime);
+                    if (overallCount == 4) {
+                        swal({
+                            title: "No Concussion Detected",
+                            text: "Athlete is safe for physical activity",
+                            type: "info",
+                            //closeOnConfirm: false
+                        },
+                        function() {
+                            webgazer.end();
+                        //    spinner.stopSpin();
+                        });
+                    }
                 })
                 .begin()
                 .setTracker("clmtrackr")
@@ -242,9 +256,9 @@ angular.module('myAppControllers', ['myAppServices'])
         $scope.calcResults = function () {
             console.log($scope.answers);
             if ($scope.score > 0) {
-                $scope.result = "The athlete has shown at least one symptom of concussion. They should refrain from activity.\n Take the test to diagnose severity.";
+                $scope.result = "The athlete has shown at least one symptom. They should stay off the field.\n Take the test to diagnose severity.";
             } else {
-                $scope.result = "The athlete has not admitted to any symptom of concussion. Take the test to verify.";
+                $scope.result = "The athlete has not admitted to any symptom. Take the test to verify.";
             }
         };
     })
