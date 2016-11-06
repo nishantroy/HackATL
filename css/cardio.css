@@ -1130,3 +1130,9 @@ input[type=radio]:checked+label {
     background-color: lightskyblue;
 }
 
+.webGazerTest {
+    background-color: #000000; /* 69 175 220    ||   237 158 70  */
+    display: block;
+    padding: 20px;
+}
+
